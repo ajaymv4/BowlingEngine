@@ -16,8 +16,19 @@ public class ScoreCalculatorImpl implements ScoreCalculator {
 		return frames;
 	}
 
+	
+	/**
+	 * Calculates score on below conditions
+	 * 1. If currentFrame is Strike then total score will be sum of current frame score and score of next 2 chances.
+	 * 2. If currentFrame is Spare then total score will be sum of current frame and score of next chance.
+	 * 3. If current frame is neither Strike or Spare then current Frame score will sum of 2 chances of the frame.
+	 * 
+	 * @param frameList
+	 * @return
+	 */
 	private static List<Frame> frameScoreCalculator(List<Frame> frameList) {
 		
+		//Set Strike or Spare for each frame.
 		setSpareOrStrike(frameList);
 		
 		ListIterator<Frame> iterator = (ListIterator<Frame>) frameList.listIterator();
@@ -74,6 +85,13 @@ public class ScoreCalculatorImpl implements ScoreCalculator {
 
 	}
 	
+	/**
+	 * 
+	 * Calculates total score of the Player till that frame.
+	 * 
+	 * @param frames
+	 * @param index
+	 */
 	private static void calculateTotalScore(List<Frame> frames, int index){
 		if(index>0){
 			ListIterator<Frame> listIterator = frames.listIterator(index);
@@ -84,6 +102,10 @@ public class ScoreCalculatorImpl implements ScoreCalculator {
 		}
 	}
 	
+	/**
+	 * Method to check whether strike or spare. 
+	 * @param frames
+	 */
 	private static void setSpareOrStrike(List<Frame> frames){
 		frames.forEach(f->{
 			if(f.getChance1Score()==10)
